@@ -2,8 +2,6 @@ package routers
 
 import (
 	"tatara-api/controllers"
-	"tatara-api/controllers/stock"
-
 	"tatara-api/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -23,9 +21,19 @@ func Init() *gin.Engine {
 		// controllers.Init(api)
 	}
 
-	auth := router.Group("auth", middleware.AuthMiddleware())
+	auth := router.Group("auth")
 	{
-		auth.GET("", stock.Status)
+		auth.GET("", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"auth": true,
+			})
+		})
+
+		auth.GET("mw", middleware.AuthMiddleware(), func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"auth": true,
+			})
+		})
 	}
 
 	return router
