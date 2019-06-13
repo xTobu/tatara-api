@@ -29,7 +29,7 @@ func Init() *gin.Engine {
 			})
 		})
 
-		auth.GET("mw", middleware.AuthMiddleware(), func(c *gin.Context) {
+		auth.GET("mw", middleware.Auth(), func(c *gin.Context) {
 			c.JSON(200, gin.H{
 				"auth": true,
 			})
