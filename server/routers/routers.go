@@ -11,7 +11,7 @@ import (
 func Init() *gin.Engine {
 
 	router := gin.New()
-	router.Use(gin.Logger())
+	// router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 
 	api := router.Group("api")
