@@ -125,8 +125,8 @@ func Warn(msg string, fields ...zapcore.Field) {
 }
 
 // Error : just pack a function, named from zap
-func Error(msg string, fields ...zapcore.Field) {
-	logger.Error(msg, fields...)
+func Error(msg string, err error) {
+	logger.Error(msg, zap.Error(err))
 }
 
 // DPanic : just pack a function, named from zap
