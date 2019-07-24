@@ -1,7 +1,7 @@
 package server
 
 import (
-	"tatara-api/config"
+	"tatara-api/lib/config"
 	"tatara-api/server/routers"
 )
 
