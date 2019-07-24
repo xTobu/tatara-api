@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"tatara-api/middleware"
 	"tatara-api/server/controllers"
+	"tatara-api/server/middleware"
 
 	"github.com/gin-gonic/gin"
 )
