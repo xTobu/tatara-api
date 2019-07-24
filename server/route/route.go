@@ -1,4 +1,4 @@
-package routers
+package route
 
 import (
 	"tatara-api/server/controllers"
