@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"tatara-api/lib/log"
 
 	"github.com/jinzhu/gorm"
@@ -8,8 +9,9 @@ import (
 )
 
 // Init : Initial Db connection
-func Init() {
-	db, err := gorm.Open("postgres", "host=127.0.0.1 user=tatara dbname=tatara sslmode=disable password=0000")
+func Init(sslmode, host, dbname, user, password string) {
+	connArgs := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=%s password=%s", host, sslmode, dbname, user, password)
+	db, err := gorm.Open("postgres", connArgs)
 	if err != nil {
 		log.Error("database.Init", err)
 	}

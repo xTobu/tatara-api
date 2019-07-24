@@ -1,2 +1,9 @@
 [server]
 port = ":8888"
+
+[database]
+sslmode="disable"
+host="127.0.0.1"
+dbname="tatara" 
+user="tatara"
+password="0000"
