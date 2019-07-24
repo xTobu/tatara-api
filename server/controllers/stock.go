@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"tatara-api/handlers/stock"
+	"tatara-api/server/handlers/stock"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"tatara-api/handlers/ping"
+	"tatara-api/server/handlers/ping"
 
 	"github.com/gin-gonic/gin"
 )
