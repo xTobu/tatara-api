@@ -1,8 +1,8 @@
 package main
 
 import (
-	"tatara-api/database"
 	"tatara-api/lib/config"
+	"tatara-api/lib/database"
 	"tatara-api/server"
 )
 
