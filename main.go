@@ -7,16 +7,13 @@ import (
 )
 
 func main() {
+	// 初始化 config
 	config.Init("development")
+	conf := config.GetConfig()
 
-	// 取得 port
-	config := config.GetConfig()
-	sslmode := config.GetString("server.sslmode")
-	host := config.GetString("server.host")
-	dbname := config.GetString("server.dbname")
-	user := config.GetString("server.user")
-	password := config.GetString("server.password")
-	database.Init(sslmode, host, dbname, user, password)
+	// 初始化 database
+	database.Init(conf.Database)
 
-	server.Init()
+	// 初始化 server
+	server.Init(conf.Server)
 }
