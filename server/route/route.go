@@ -18,6 +18,7 @@ func Init() *gin.Engine {
 	{
 		controllers.PingInit(api)
 		controllers.StockInit(api)
+		controllers.UserInit(api)
 		// controllers.Init(api)
 	}
 
