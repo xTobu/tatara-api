@@ -54,6 +54,6 @@ func Init(env string) {
 }
 
 // GetConfig : 取得 config
-func GetConfig() Conf {
-	return config
+func GetConfig() *Conf {
+	return &config
 }
