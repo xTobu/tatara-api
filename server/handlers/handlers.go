@@ -16,6 +16,6 @@ func OK(data interface{}) *gin.H {
 func Fail(msg interface{}) *gin.H {
 	return &gin.H{
 		"status": "fail",
-		"errMsg": msg,
+		"msg":    msg,
 	}
 }
