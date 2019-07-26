@@ -10,6 +10,7 @@ import (
 func StockInit(router *gin.RouterGroup) {
 	group := router.Group("stock")
 	{
+		group.POST("", stock.POSTStock)
 		group.GET("", stock.GETPrice)
 	}
 }

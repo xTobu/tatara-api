@@ -1,12 +1,25 @@
 package stock
 
 import (
+	"tatara-api/server/handlers"
+
 	"github.com/gin-gonic/gin"
 )
 
-func Price(c *gin.Context) {
+// Info : struct
+type Info struct {
+	Username string `json:"user"`
+	Password int    `json:"pwd"`
+}
 
-	c.JSON(200, gin.H{
-		"price": 10000,
-	})
+// POSTStock POST Stock
+func POSTStock(c *gin.Context) {
+	req := new(Info)
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
+
+	c.JSON(200, handlers.OK(req))
 }
