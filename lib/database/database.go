@@ -19,6 +19,18 @@ func Init(c config.DatabaseStruct) {
 	if err != nil {
 		log.Error("database.Init", err)
 	}
+	// 全局使用單數表名
+	db.SingularTable(true)
+
+	// // 启用Logger，显示详细日志
+	// db.LogMode(true)
+
+	// // 禁用日志记录器，不显示任何日志
+	// db.LogMode(false)
+
+	// // 调试单个操作，显示此操作的详细日志
+	// db.Debug().Where("name = ?", "jinzhu").First(&User{})
+
 }
 
 // GetDB : 取得 db
