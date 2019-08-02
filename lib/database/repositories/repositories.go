@@ -2,7 +2,14 @@ package repositories
 
 import (
 	modelUser "tatara-api/lib/database/models/user"
+
+	"github.com/jinzhu/gorm"
 )
+
+// Setup 方便傳遞的 repositories Setup struct
+type Setup struct {
+	DB *gorm.DB
+}
 
 // Init : Initial repositories
 func Init() {

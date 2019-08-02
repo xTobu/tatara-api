@@ -11,5 +11,6 @@ func UserInit(router *gin.RouterGroup) {
 	group := router.Group("user")
 	{
 		group.GET("", user.GETUsers)
+		group.GET("double", user.GETDoubleUsers)
 	}
 }

@@ -7,8 +7,8 @@ import (
 
 // User ...
 type User struct {
-	ID   uint64 `gorm:"type:bigserial; PRIMARY KEY; AUTO_INCREMENT:number" json:"pkid"`
-	Name string `gorm:"type:varchar(20)" json:"name"`
+	ID   uint64 `json:"pkid" gorm:"type:bigserial; PRIMARY KEY; AUTO_INCREMENT:number;"` // Permiry Key
+	Name string `json:"name" gorm:"type:varchar(20)"`                                    // 姓名
 }
 
 // Migration ...

@@ -1,27 +1,53 @@
 package user
 
 import (
+	"tatara-api/lib/database"
 	modelUser "tatara-api/lib/database/models/user"
+	"tatara-api/lib/database/repositories"
 	"tatara-api/lib/log"
 )
 
-// StructAllUsers ...
-type StructAllUsers struct {
-	UserList1 []modelUser.User `json:"user_list1"`
-	UserList2 []modelUser.User `json:"user_list2"`
+// Repo user repository
+type Repo struct {
+	repositories.Setup
 }
 
-// AllUsers 取得所有 User
-func AllUsers() (result StructAllUsers, err error) {
-	u, _ := modelUser.FindUsers()
+// StructDoubleUsers ...
+type StructDoubleUsers struct {
+	UsersOne []modelUser.User `json:"users_one"`
+	UsersTwo []modelUser.User `json:"users_two"`
+}
+
+// NewRepo new instance of user repository
+func NewRepo() *Repo {
+	// 踩坑： invalid memory address
+	// https://studygolang.com/articles/3174
+	var r = new(Repo)
+	r.DB = database.GetDB()
+	return r
+}
+
+// DoubleUsers 結構為兩份的所有使用者
+func (r *Repo) DoubleUsers() (result StructDoubleUsers, err error) {
+	var users []modelUser.User
+	err = r.DB.Find(&users).Error
 	if err != nil {
-		log.Error("AllUsers", err)
+		log.Error("Model.user AllUsers", err)
 		return
 	}
-	result = StructAllUsers{
-		UserList1: u,
-		UserList2: u,
+	result = StructDoubleUsers{
+		UsersOne: users,
+		UsersTwo: users,
 	}
+	return
+}
 
+// FindUsers 取得所有 User
+func (r *Repo) FindUsers() (users []modelUser.User, err error) {
+	err = r.DB.Find(&users).Error
+	if err != nil {
+		log.Error("Model.user FindUsers", err)
+		return
+	}
 	return
 }
