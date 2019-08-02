@@ -19,17 +19,16 @@ func Migration() {
 		db.AutoMigrate(&User{})
 		log.Info("AutoMigrate：user")
 	}
-	db.Create(&User{Name: "Junxiang"})
-
+	// db.Create(&User{Name: "Junxiang"})
 }
 
-// FindUsers 取得所有 User
-func FindUsers() (users []User, err error) {
-	db := database.GetDB()
-	err = db.Find(&users).Error
-	if err != nil {
-		log.Error("FindUsers", err)
-		return
+// AfterFind : GORM Hooks
+// process after user find
+// ID 為奇數時， Name 改為 "Huang"
+func (user *User) AfterFind() (err error) {
+	switch user.ID % 2 {
+	case 1:
+		user.Name = "Huang"
 	}
 	return
 }
