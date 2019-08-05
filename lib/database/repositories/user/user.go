@@ -18,6 +18,11 @@ type StructDoubleUsers struct {
 	UsersTwo []modelUser.User `json:"users_two"`
 }
 
+// User ...
+type User struct {
+	modelUser.User
+}
+
 // NewRepo new instance of user repository
 func NewRepo() *Repo {
 	// 踩坑： invalid memory address
@@ -32,7 +37,7 @@ func (r *Repo) DoubleUsers() (result StructDoubleUsers, err error) {
 	var users []modelUser.User
 	err = r.DB.Find(&users).Error
 	if err != nil {
-		log.Error("Model.user AllUsers", err)
+		log.Error("Repo.user AllUsers", err)
 		return
 	}
 	result = StructDoubleUsers{
@@ -46,7 +51,17 @@ func (r *Repo) DoubleUsers() (result StructDoubleUsers, err error) {
 func (r *Repo) FindUsers() (users []modelUser.User, err error) {
 	err = r.DB.Find(&users).Error
 	if err != nil {
-		log.Error("Model.user FindUsers", err)
+		log.Error("Repo.user FindUsers", err)
+		return
+	}
+	return
+}
+
+// CreateUser 新增 User
+func (r *Repo) CreateUser(user *User) (err error) {
+	err = r.DB.Create(user).Error
+	if err != nil {
+		log.Error("Repo.user CreateUser", err)
 		return
 	}
 	return

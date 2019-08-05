@@ -9,6 +9,7 @@ import (
 type User struct {
 	ID   uint64 `json:"pkid" gorm:"type:bigserial; PRIMARY KEY; AUTO_INCREMENT:number;"` // Permiry Key
 	Name string `json:"name" gorm:"type:varchar(20)"`                                    // 姓名
+	Sex  string `json:"sex" gorm:"type:varchar(20)"`                                     // 性別
 }
 
 // Migration ...
@@ -18,8 +19,8 @@ func Migration() {
 	if !has {
 		db.AutoMigrate(&User{})
 		log.Info("AutoMigrate：user")
+		// db.Create(&User{Name: "Junxiang", Sex: "Man"})
 	}
-	// db.Create(&User{Name: "Junxiang"})
 }
 
 // AfterFind : GORM Hooks
