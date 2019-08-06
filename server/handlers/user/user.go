@@ -26,7 +26,7 @@ func POSTUser(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(200, handlers.OK("Done"))
+	c.JSON(200, handlers.OK(""))
 
 }
 

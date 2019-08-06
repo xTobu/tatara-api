@@ -59,10 +59,13 @@ func (r *Repo) FindUsers() (users []modelUser.User, err error) {
 
 // CreateUser 新增 User
 func (r *Repo) CreateUser(user *User) (err error) {
-	err = r.DB.Create(user).Error
-	if err != nil {
-		log.Error("Repo.user CreateUser", err)
-		return
-	}
+	// goroutine 只發送，不在意儲存結果
+	go func() {
+		err = r.DB.Create(user).Error
+		if err != nil {
+			log.Error("Repo.user CreateUser", err)
+			return
+		}
+	}()
 	return
 }
