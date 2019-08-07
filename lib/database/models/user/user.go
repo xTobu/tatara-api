@@ -20,10 +20,18 @@ func Migration() {
 	db := database.GetDB()
 	has := db.HasTable(&User{})
 	if !has {
+		// // Set DefaultTableName
+		// gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
+		// 	return "user." + defaultTableName
+		// }
 		db.AutoMigrate(&User{})
 		log.Info("AutoMigrate：user")
-		// db.Create(&User{Name: "Junxiang", Sex: "Man"})
 	}
+}
+
+// TableName ...
+func (User) TableName() string {
+	return "user.user"
 }
 
 // AfterFind : GORM Hooks

@@ -32,8 +32,8 @@ func NewRepo() *Repo {
 	return r
 }
 
-// DoubleUsers 結構為兩份的所有使用者
-func (r *Repo) DoubleUsers() (result StructDoubleUsers, err error) {
+// DoubleReadUsers 結構為兩份的所有使用者
+func (r *Repo) DoubleReadUsers() (result StructDoubleUsers, err error) {
 	var users []modelUser.User
 	err = r.DB.Find(&users).Error
 	if err != nil {
@@ -47,11 +47,11 @@ func (r *Repo) DoubleUsers() (result StructDoubleUsers, err error) {
 	return
 }
 
-// FindUsers 取得所有 User
-func (r *Repo) FindUsers() (users []modelUser.User, err error) {
+// ReadUsers 取得所有 User
+func (r *Repo) ReadUsers() (users []modelUser.User, err error) {
 	err = r.DB.Find(&users).Error
 	if err != nil {
-		log.Error("Repo.user FindUsers", err)
+		log.Error("Repo.user ReadUsers", err)
 		return
 	}
 	return

@@ -33,7 +33,7 @@ func POSTUser(c *gin.Context) {
 // GETUsers 取得所有使用者
 func GETUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()
-	res, err := repo.FindUsers()
+	res, err := repo.ReadUsers()
 	if err != nil {
 		c.AbortWithStatusJSON(400, gin.H{
 			"errors": "repo.FindUsers",
@@ -47,7 +47,7 @@ func GETUsers(c *gin.Context) {
 // GETDoubleUsers 取得兩份的所有使用者
 func GETDoubleUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()
-	res, err := repo.DoubleUsers()
+	res, err := repo.DoubleReadUsers()
 	if err != nil {
 		c.AbortWithStatusJSON(400, gin.H{
 			"errors": "repo.DoubleUsers",
