@@ -3,13 +3,16 @@ package user
 import (
 	"tatara-api/lib/database"
 	"tatara-api/lib/log"
+	"time"
 )
 
 // User ...
 type User struct {
-	ID   uint64 `json:"-" gorm:"type:bigserial; PRIMARY KEY; AUTO_INCREMENT:number;"` // Permiry Key
-	Name string `json:"name,omitempty" gorm:"type:varchar(20)"`                       // 姓名
-	Sex  string `json:"sex,omitempty" gorm:"type:varchar(20)"`                        // 性別
+	ID        uint64    `json:"-" gorm:"type:bigserial; PRIMARY KEY; AUTO_INCREMENT:number;"` // Permiry Key
+	Name      string    `json:"name,omitempty" gorm:"column:name; type:varchar(20)"`          // 姓名
+	Sex       string    `json:"sex,omitempty" gorm:"column:sex; type:varchar(20)"`            // 性別
+	CreatedAt time.Time `json:"createdAt" gorm:"type:timestamp(6) without time zone; not null;"`
+	UpdatedAt time.Time `json:"updatedAt" gorm:"type:timestamp(6) without time zone; not null;"`
 }
 
 // Migration ...
