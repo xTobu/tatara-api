@@ -4,7 +4,6 @@ import (
 	"tatara-api/lib/database"
 	modelUser "tatara-api/lib/database/models/user"
 	"tatara-api/lib/database/repositories"
-	"tatara-api/lib/log"
 )
 
 // Repo user repository
@@ -36,10 +35,6 @@ func NewRepo() *Repo {
 func (r *Repo) DoubleReadUsers() (result StructDoubleUsers, err error) {
 	var users []modelUser.User
 	err = r.DB.Find(&users).Error
-	if err != nil {
-		log.Error("Repo.user AllUsers", err)
-		return
-	}
 	result = StructDoubleUsers{
 		UsersOne: users,
 		UsersTwo: users,
@@ -50,22 +45,14 @@ func (r *Repo) DoubleReadUsers() (result StructDoubleUsers, err error) {
 // ReadUsers 取得所有 User
 func (r *Repo) ReadUsers() (users []modelUser.User, err error) {
 	err = r.DB.Find(&users).Error
-	if err != nil {
-		log.Error("Repo.user ReadUsers", err)
-		return
-	}
 	return
 }
 
 // CreateUser 新增 User
-func (r *Repo) CreateUser(user *User) (err error) {
-	// goroutine 只發送，不在意儲存結果
+func (r *Repo) CreateUser(jsonUser *User) (err error) {
+	// 使用 goroutine : 只發送，不在意儲存結果
 	go func() {
-		err = r.DB.Create(user).Error
-		if err != nil {
-			log.Error("Repo.user CreateUser", err)
-			return
-		}
 	}()
+	err = r.DB.Create(jsonUser).Error
 	return
 }

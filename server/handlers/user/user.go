@@ -10,23 +10,22 @@ import (
 
 // POSTUser 新增使用者
 func POSTUser(c *gin.Context) {
-	req := new(repoUser.User)
-	err := c.BindJSON(&req)
+	jsonUser := new(repoUser.User)
+	err := c.BindJSON(jsonUser)
 	if err != nil {
+		log.Error("handler.POSTUser.BindJSON", err)
 		c.AbortWithStatus(400)
 		return
 	}
 
 	repo := repoUser.NewRepo()
-	err = repo.CreateUser(req)
+	err = repo.CreateUser(jsonUser)
 	if err != nil {
-		log.Error("repo.POSTUser", err)
-		c.AbortWithStatusJSON(400, gin.H{
-			"errors": "repo.POSTUser",
-		})
+		log.Error("handler.POSTUser.CreateUser", err)
+		c.AbortWithStatus(400)
 		return
 	}
-	c.JSON(200, handlers.OK(""))
+	c.JSON(200, handlers.OK(true))
 
 }
 
@@ -35,9 +34,8 @@ func GETUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()
 	res, err := repo.ReadUsers()
 	if err != nil {
-		c.AbortWithStatusJSON(400, gin.H{
-			"errors": "repo.FindUsers",
-		})
+		log.Error("handler.GETUsers", err)
+		c.AbortWithStatus(400)
 		return
 	}
 	c.JSON(200, handlers.OK(res))
@@ -49,9 +47,8 @@ func GETDoubleUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()
 	res, err := repo.DoubleReadUsers()
 	if err != nil {
-		c.AbortWithStatusJSON(400, gin.H{
-			"errors": "repo.DoubleUsers",
-		})
+		log.Error("handler.GETDoubleUsers", err)
+		c.AbortWithStatus(400)
 		return
 	}
 	c.JSON(200, handlers.OK(res))

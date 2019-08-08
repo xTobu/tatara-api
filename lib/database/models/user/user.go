@@ -14,8 +14,8 @@ type User struct {
 	// UpdatedAt time.Time `json:"updatedAt" gorm:"type:timestamp(6)"`
 	// DeletedAt time.Time `json:"deletedAt" gorm:"type:timestamp(6)"`
 
-	Account  string `json:"account" gorm:"type:varchar(20)"`  // 帳號
-	Password string `json:"password" gorm:"type:varchar(20)"` // 密碼
+	Account  string `json:"account" gorm:"type:varchar(20)" binding:"required"`  // 帳號
+	Password string `json:"password" gorm:"type:varchar(20)" binding:"required"` // 密碼
 
 }
 
