@@ -59,7 +59,18 @@ func (r *Repo) CreateUser(jsonUser *User) (err error) {
 
 // DeleteUser 刪除 User
 func (r *Repo) DeleteUser(id *string) (err error) {
-	var user User
-	err = r.DB.Where("id = ?", &id).Delete(&user).Error
+	user := new(User)
+	err = r.DB.Where("id = ?", &id).Delete(user).Error
+	return
+}
+
+// UpdateUser 更新 User
+func (r *Repo) UpdateUser(id *string, jsonUser *User) (err error) {
+	user := new(User)
+	err = r.DB.Where("id = ?", id).First(user).Error
+	if err != nil {
+		return
+	}
+	err = r.DB.Model(user).Updates(jsonUser).Error
 	return
 }

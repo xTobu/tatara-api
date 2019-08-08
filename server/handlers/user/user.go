@@ -43,6 +43,29 @@ func DELETEUser(c *gin.Context) {
 
 }
 
+// PUTUser 更新使用者
+func PUTUser(c *gin.Context) {
+	repo := repoUser.NewRepo()
+	id := c.Param("id")
+	jsonUser := new(repoUser.User)
+
+	err := c.BindJSON(jsonUser)
+	if err != nil {
+		log.Error("handler.PUTUser.BindJSON", err)
+		c.AbortWithStatus(400)
+		return
+	}
+
+	err = repo.UpdateUser(&id, jsonUser)
+	if err != nil {
+		log.Error("handler.PUTUser.UpdateUser", err)
+		c.AbortWithStatus(400)
+		return
+	}
+	c.JSON(200, handlers.OK(true))
+
+}
+
 // GETUsers 取得所有使用者
 func GETUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()
