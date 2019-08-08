@@ -48,6 +48,12 @@ func (r *Repo) ReadUsers() (users []modelUser.User, err error) {
 	return
 }
 
+// ReadUser 取得 User
+func (r *Repo) ReadUser(id *string) (user modelUser.User, err error) {
+	err = r.DB.Where("id = ?", id).First(&user).Error
+	return
+}
+
 // CreateUser 新增 User
 func (r *Repo) CreateUser(jsonUser *User) (err error) {
 	// 使用 goroutine : 只發送，不在意儲存結果

@@ -79,6 +79,20 @@ func GETUsers(c *gin.Context) {
 
 }
 
+// GETUser 取得使用者
+func GETUser(c *gin.Context) {
+	id := c.Param("id")
+	repo := repoUser.NewRepo()
+	res, err := repo.ReadUser(&id)
+	if err != nil {
+		log.Error("handler.GETUser", err)
+		c.AbortWithStatus(404)
+		return
+	}
+	c.JSON(200, handlers.OK(res))
+
+}
+
 // GETDoubleUsers 取得兩份的所有使用者
 func GETDoubleUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()
