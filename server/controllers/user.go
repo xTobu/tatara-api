@@ -13,5 +13,6 @@ func UserInit(router *gin.RouterGroup) {
 		group.GET("", user.GETUsers)
 		group.GET("double", user.GETDoubleUsers)
 		group.POST("", user.POSTUser)
+		group.DELETE(":id", user.DELETEUser)
 	}
 }

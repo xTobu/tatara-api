@@ -29,6 +29,20 @@ func POSTUser(c *gin.Context) {
 
 }
 
+// DELETEUser 刪除使用者
+func DELETEUser(c *gin.Context) {
+	id := c.Param("id")
+	repo := repoUser.NewRepo()
+	err := repo.DeleteUser(&id)
+	if err != nil {
+		log.Error("handler.DELETEUser.DeleteUser", err)
+		c.AbortWithStatus(400)
+		return
+	}
+	c.JSON(200, handlers.OK(true))
+
+}
+
 // GETUsers 取得所有使用者
 func GETUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()

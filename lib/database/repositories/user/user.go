@@ -56,3 +56,10 @@ func (r *Repo) CreateUser(jsonUser *User) (err error) {
 	err = r.DB.Create(jsonUser).Error
 	return
 }
+
+// DeleteUser 刪除 User
+func (r *Repo) DeleteUser(id *string) (err error) {
+	var user User
+	err = r.DB.Where("id = ?", &id).Delete(&user).Error
+	return
+}
