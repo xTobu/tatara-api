@@ -73,10 +73,6 @@ func (r *Repo) DeleteUser(id *string) (err error) {
 // UpdateUser 更新 User
 func (r *Repo) UpdateUser(id *string, jsonUser *User) (err error) {
 	user := new(User)
-	err = r.DB.Where("id = ?", id).First(user).Error
-	if err != nil {
-		return
-	}
 	err = r.DB.Model(user).Updates(jsonUser).Error
 	return
 }

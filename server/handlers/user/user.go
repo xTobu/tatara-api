@@ -56,6 +56,13 @@ func PUTUser(c *gin.Context) {
 		return
 	}
 
+	_, err = repo.ReadUser(&id)
+	if err != nil {
+		log.Error("handler.PUTUser.ReadUser", err)
+		c.AbortWithStatus(404)
+		return
+	}
+
 	err = repo.UpdateUser(&id, jsonUser)
 	if err != nil {
 		log.Error("handler.PUTUser.UpdateUser", err)
@@ -71,7 +78,7 @@ func GETUsers(c *gin.Context) {
 	repo := repoUser.NewRepo()
 	res, err := repo.ReadUsers()
 	if err != nil {
-		log.Error("handler.GETUsers", err)
+		log.Error("handler.GETUsers.ReadUsers", err)
 		c.AbortWithStatus(400)
 		return
 	}
