@@ -2,36 +2,43 @@ package user
 
 import (
 	"tatara-api/lib/database"
-	"tatara-api/lib/log"
-	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 // User ...
 type User struct {
-	ID        uint64    `json:"-" gorm:"type:bigserial; PRIMARY KEY; AUTO_INCREMENT:number;"` // Permiry Key
-	Name      string    `json:"name,omitempty" gorm:"column:name; type:varchar(20)"`          // 姓名
-	Sex       string    `json:"sex,omitempty" gorm:"column:sex; type:varchar(20)"`            // 性別
-	CreatedAt time.Time `json:"createdAt" gorm:"type:timestamp(6) without time zone; not null;"`
-	UpdatedAt time.Time `json:"updatedAt" gorm:"type:timestamp(6) without time zone; not null;"`
+	gorm.Model
+	// ID        uint64    `json:"-" gorm:"type:bigserial; PRIMARY KEY; AUTO_INCREMENT:number;"` // Permiry Key
+	// CreatedAt time.Time `json:"createdAt" gorm:"type:timestamp(6)"`
+	// UpdatedAt time.Time `json:"updatedAt" gorm:"type:timestamp(6)"`
+	// DeletedAt time.Time `json:"deletedAt" gorm:"type:timestamp(6)"`
+
+	Account  string `json:"account" gorm:"type:varchar(20)"`  // 帳號
+	Password string `json:"password" gorm:"type:varchar(20)"` // 密碼
+
 }
 
 // Migration ...
 func Migration() {
 	db := database.GetDB()
+	// HasTable 無法判斷有 schema 的 table ，
+	// 故都會回傳 false
+	// ref. https://github.com/jinzhu/gorm/issues/1197
 	has := db.HasTable(&User{})
 	if !has {
 		// // Set DefaultTableName
 		// gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
-		// 	return "user." + defaultTableName
+		// 	return "ro." + defaultTableName
 		// }
 		db.AutoMigrate(&User{})
-		log.Info("AutoMigrate：user")
+		//  log.Info("AutoMigrate：ro.user")
 	}
 }
 
 // TableName ...
-func (User) TableName() string {
-	return "user.user"
+func (user *User) TableName() string {
+	return "ro.user"
 }
 
 // AfterFind : GORM Hooks
