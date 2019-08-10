@@ -11,15 +11,14 @@ import (
 func Init() *gin.Engine {
 
 	router := gin.New()
-	// router.Use(gin.Logger())
+	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 
 	api := router.Group("api")
 	{
-		controllers.PingInit(api)
 		controllers.StockInit(api)
 		controllers.UserInit(api)
-		// controllers.Init(api)
+		// controllers.Init(api) // 保留控制器的彈性，故註解
 	}
 
 	auth := router.Group("auth")

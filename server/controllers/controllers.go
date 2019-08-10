@@ -6,8 +6,8 @@ import "github.com/gin-gonic/gin"
 func Init(router *gin.RouterGroup) {
 
 	var listControllerInit = []func(router *gin.RouterGroup){
-		PingInit,
 		StockInit,
+		UserInit,
 	}
 
 	for _, fn := range listControllerInit {
